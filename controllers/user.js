@@ -52,3 +52,40 @@ module.exports.loginUser = (req,res) => {
     })
     .catch(err => res.send(err))
 };
+
+//GET USER DETAILS
+module.exports.getProfile = (req, res) => {
+
+    return User.findById(req.user.id)
+    .then(result => {
+      result.password = "";
+      return res.send(result);
+    })
+    .catch(err => res.send(err))
+  };
+
+
+//GET ALL USERS - ADMIN 
+module.exports.getAllUsers = (req,res) => {
+
+  return User.find({})
+  .then(result => {
+    console.log(result)
+    res.send(result)
+  })
+  .catch(err => res.send(err))
+};
+
+
+//DELETE SPECIFIC USER - ADMIN
+module.exports.deleteUser = (req,res) =>{
+
+    User.findByIdAndRemove(req.body.userId).then(result =>{
+        if(result === null){
+            return res.send(false)
+        }else{
+            return res.send(true)
+        }
+    })
+    .catch(err => res.send(err))
+};

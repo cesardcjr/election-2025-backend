@@ -17,20 +17,12 @@ module.exports.createAccessToken = (user)=>{
 //[Token Verification]
 module.exports.verify = (req,res,next)=>{
 
-	console.log("This is from the req.headers.authorization")
-	console.log(req.headers.authorization)
 	let token = req.headers.authorization
 
 	if(typeof token === "undefined"){
 		return res.send({auth:"Failed. No Token"});
 	}else{
-		console.log("With Bearer prefix")
-		console.log(token);
 		token = token.slice(7,token.length);
-		console.log("No Bearer prefix")
-		console.log(token);
-
-
 		jwt.verify(token, secret, function(err,decodedToken){
 
 			if(err){
@@ -39,8 +31,6 @@ module.exports.verify = (req,res,next)=>{
 					message: err.message
 				})
 			}else{
-				console.log("Data that will be assigned to the req.user")
-				console.log(decodedToken);
 				req.user = decodedToken
 				next()
 			}

@@ -32,6 +32,12 @@ router.post("/register", (req, res) => {
 //USER LOGIN
 router.post("/login", userController.loginUser);
 
+//GET ALL USER
+router.post("/all", userController.getAllUsers)
+
+//RETRIEVE USER DETAILS
+router.get("/details", verify, userController.getProfile);
+
 
 // Export Route System
 module.exports = router;
