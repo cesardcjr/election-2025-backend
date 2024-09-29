@@ -89,3 +89,50 @@ module.exports.deleteUser = (req,res) =>{
     })
     .catch(err => res.send(err))
 };
+
+//UPDATE USER PROFILE
+  module.exports.updateProfile = async (req, res) => {
+    try {
+
+      console.log(req.user);
+      console.log(req.body);
+      const userId = req.user.id;
+
+      const { firstName, lastName, mobileNo, username } = req.body;
+    
+      const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { firstName, lastName, mobileNo, username },
+      { new: true }
+      );
+    
+      res.send(updatedUser);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ message: 'Failed to update profile' });
+    }
+    }
+
+//UPDATE THE USER'S PASSWORD
+module.exports.resetPassword = async (req, res) => {
+  try {
+
+    const { newPassword } = req.body;
+    const { userId } = req.params;  
+    
+    // Define the salt rounds (for example, 10 rounds)
+    const saltRounds = 10;
+    
+    // Hashing the new password with salt rounds
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+    
+    // Updating the user's password in the database
+    await User.findByIdAndUpdate(userId, { password: hashedPassword });
+    
+    // Sending a success response
+    res.status(200).send({ message: 'Password reset successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Internal server error' });
+  }
+};

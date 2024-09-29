@@ -19,7 +19,7 @@ router.post("/search", voterController.searchVoterByName);
 router.get("/:voterId", voterController.searchVoterByID);
 
 //Update Voter Details
-router.put("/:voterId", voterController.updateVoterDetails);
+router.put("/:voterId", verify, voterController.updateVoterDetails);
 
 
 // Export Route System

@@ -38,6 +38,15 @@ router.post("/all", userController.getAllUsers)
 //RETRIEVE USER DETAILS
 router.get("/details", verify, userController.getProfile);
 
+//DELETE SPECIFIC USER - ADMIN ACCESS ONLY
+router.delete("/deleteUser", verify, verifyAdmin, userController.deleteUser);
+
+//Update Profile  
+router.put('/profile', verify, userController.updateProfile);
+
+//Reset Password
+router.put('/:userId/reset-password', verify, userController.resetPassword);
+
 
 // Export Route System
 module.exports = router;
