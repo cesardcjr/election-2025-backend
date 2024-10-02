@@ -80,7 +80,7 @@ module.exports.getAllUsers = (req,res) => {
 //DELETE SPECIFIC USER - ADMIN
 module.exports.deleteUser = (req,res) =>{
 
-    User.findByIdAndRemove(req.body.userId).then(result =>{
+    User.findByIdAndDelete(req.body.userId).then(result =>{
         if(result === null){
             return res.send(false)
         }else{

@@ -33,7 +33,7 @@ router.post("/register", (req, res) => {
 router.post("/login", userController.loginUser);
 
 //GET ALL USER
-router.post("/all", userController.getAllUsers)
+router.get("/all", verify, verifyAdmin, userController.getAllUsers)
 
 //RETRIEVE USER DETAILS
 router.get("/details", verify, userController.getProfile);

@@ -12,6 +12,7 @@ const app = express();
 //Routes
 const userRoutes = require("./routes/user")
 const voterRoutes = require("./routes/voter")
+const auditRoutes = require("./routes/audit")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -26,6 +27,7 @@ mongoose.connect("mongodb+srv://engineercesardcjr:VMezuAsV9rPF6Uvr@election-data
 //Back-end Routes
 app.use("/users",userRoutes);
 app.use("/voters",voterRoutes);
+app.use("/audit", auditRoutes);
 
 // Server Gateway Response
 if (require.main === module) {
