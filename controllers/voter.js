@@ -100,3 +100,45 @@ module.exports.updateVoterDetails = async (req, res) => {
         res.status(500).send(false); // Send false on error
     }
 };
+
+// Add New Voter
+module.exports.addNewVoter = (req, res) => {
+    // Create a new voter based on the request body
+    const newVoter = new Voter({
+        precint_number: req.body.precint_number,
+        fullname: req.body.fullname,
+        barangay: req.body.barangay,
+        color: req.body.color,
+        encoded_by: req.user.username, 
+        creation_date: new Date()
+    });
+
+    // Save the new voter to the database
+    newVoter.save()
+        .then(savedVoter => {
+            // Add an entry to the audit trail
+            const auditTrailEntry = new AuditTrail({
+                voter_id: savedVoter._id,
+                updated_by: req.user.username,  // Change to 'updated_by' for consistency
+                update_date: new Date(),  // Default date can also be used
+                changes: [
+                    { field: 'precint_number', new_value: savedVoter.precint_number },
+                    { field: 'fullname', new_value: savedVoter.fullname },
+                    { field: 'barangay', new_value: savedVoter.barangay },
+                    { field: 'color', new_value: savedVoter.color },
+                ]
+            });
+
+            // Save the audit trail entry
+            return auditTrailEntry.save()
+                .then(() => {
+                    // Send the saved voter back in the response
+                    res.status(201).send(savedVoter);
+                });
+        })
+        .catch(err => {
+            console.error('Error adding new voter:', err);
+            res.status(500).send({ message: 'Failed to add new voter' });
+        });
+};
+

@@ -21,6 +21,9 @@ router.get("/:voterId", voterController.searchVoterByID);
 //Update Voter Details
 router.put("/:voterId", verify, voterController.updateVoterDetails);
 
+//Add new voter
+router.post("/add", verify, voterController.addNewVoter);
+
 
 // Export Route System
 module.exports = router;

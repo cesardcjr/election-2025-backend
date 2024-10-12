@@ -34,6 +34,9 @@ const voterSchema = new mongoose.Schema({
 	update_date:{
 		type: Date
 	},
+	updated_by:{
+		type: String
+	},
 	encoded_by:{
 		type: String
 	},
@@ -45,7 +48,17 @@ const voterSchema = new mongoose.Schema({
 	},
 	latitude: {
 		type: String
-	}
+	},
+	position: {
+		type: String
+	},
+	creation_date: {
+		type: Date
+	},
+	remarks: {
+		type: String
+	},
+
 
 })
 
