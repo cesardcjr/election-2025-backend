@@ -29,11 +29,22 @@ app.use("/users",userRoutes);
 app.use("/voters",voterRoutes);
 app.use("/audit", auditRoutes);
 
+// Root route
+app.get('/', (req, res) => {
+  res.send('Welcome to the API');
+});
+
+// Fallback route for undefined endpoints
+app.use((req, res) => {
+  res.status(404).json({ message: 'Route not found' });
+});
+
 // Server Gateway Response
 if (require.main === module) {
-    app.listen(process.env.PORT || port, () => {
-        console.log(`API is now online on port ${process.env.PORT || port}`);
-    });
+    app.listen(port, '0.0.0.0', () => {
+  console.log(`API is now online on port ${port}`);
+});
+
 }
 
 module.exports = { app, mongoose };

@@ -23,37 +23,6 @@ module.exports.searchVoterByID = (req,res) => {
 
 
 // Update Voter Details
-// module.exports.updateVoterDetails = (req, res) => {
-//     const updatedVoter = {
-//         precint_number: req.body.precint_number,
-//         clustered_precint: req.body.clustered_precint,
-//         fullname: req.body.fullname,
-//         birthday: req.body.birthday,
-//         address: req.body.address,
-//         contact_number: req.body.contact_number,
-//         category: req.body.category,
-//         barangay: req.body.barangay,
-//         referred_by: req.body.referred_by,
-//         color: req.body.color,
-//         encoded_by: req.user.username, // Ensure that `req.user` contains this data
-//         update_date: new Date()
-//     };
-
-//     Voter.findByIdAndUpdate(req.params.voterId, updatedVoter, { new: true })
-//         .then(voter => {
-//             if (!voter) {
-//                 return res.status(404).send(false); // Return false if no voter is found
-//             }
-//             return res.send(true); // Update successful
-//         })
-//         .catch(err => {
-//             console.error('Error updating voter:', err);
-//             res.status(500).send(false); // Send false on error
-//         });
-// };
-
-
-// Update Voter Details
 module.exports.updateVoterDetails = async (req, res) => {
     try {
         const voter = await Voter.findById(req.params.voterId);
@@ -109,7 +78,9 @@ module.exports.addNewVoter = (req, res) => {
         fullname: req.body.fullname,
         barangay: req.body.barangay,
         color: req.body.color,
-        encoded_by: req.user.username, 
+        category: req.body.category,
+        encoded_by: req.user.username,
+        remarks: req.body.remarks,
         creation_date: new Date()
     });
 
