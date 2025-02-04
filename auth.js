@@ -3,7 +3,7 @@ const secret = "PangkatSolusyon2025";
 
 
 //[Token Access Creation]
-module.exports.createAccessToken = (user)=>{
+module.exports.createAccessToken = (user) => {
 	const data = {
 		id: user._id,
 		username: user.username,
@@ -16,22 +16,22 @@ module.exports.createAccessToken = (user)=>{
 
 
 //[Token Verification]
-module.exports.verify = (req,res,next)=>{
+module.exports.verify = (req, res, next) => {
 
 	let token = req.headers.authorization
 
-	if(typeof token === "undefined"){
-		return res.send({auth:"Failed. No Token"});
-	}else{
-		token = token.slice(7,token.length);
-		jwt.verify(token, secret, function(err,decodedToken){
+	if (typeof token === "undefined") {
+		return res.send({ auth: "Failed. No Token" });
+	} else {
+		token = token.slice(7, token.length);
+		jwt.verify(token, secret, function (err, decodedToken) {
 
-			if(err){
+			if (err) {
 				return res.send({
-					auth:"Failed",
+					auth: "Failed",
 					message: err.message
 				})
-			}else{
+			} else {
 				req.user = decodedToken
 				next()
 			}
@@ -40,14 +40,14 @@ module.exports.verify = (req,res,next)=>{
 }
 
 //Admin Verification
-module.exports.verifyAdmin = (req,res,next)=>{
+module.exports.verifyAdmin = (req, res, next) => {
 
-	if(req.user.isAdmin){
+	if (req.user.isAdmin) {
 		next()
-	}else{
+	} else {
 		return res.send({
-			auth:"Failed",
-			message:"Action Forbidden"
+			auth: "Failed",
+			message: "Action Forbidden"
 		})
 	}
 }

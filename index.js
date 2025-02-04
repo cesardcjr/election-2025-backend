@@ -20,13 +20,13 @@ app.use(cors());
 
 // Database Connection
 mongoose.connect("mongodb+srv://engineercesardcjr:VMezuAsV9rPF6Uvr@election-database.uzlj5.mongodb.net/database2025")
-    .then(() => console.log('Connected to MongoDB Atlas.'))
-    .catch(err => console.error('Connection error', err));
+  .then(() => console.log('Connected to MongoDB Atlas.'))
+  .catch(err => console.error('Connection error', err));
 
 
 //Back-end Routes
-app.use("/users",userRoutes);
-app.use("/voters",voterRoutes);
+app.use("/users", userRoutes);
+app.use("/voters", voterRoutes);
 app.use("/audit", auditRoutes);
 
 // Root route
@@ -41,9 +41,9 @@ app.use((req, res) => {
 
 // Server Gateway Response
 if (require.main === module) {
-    app.listen(port, '0.0.0.0', () => {
-  console.log(`API is now online on port ${port}`);
-});
+  app.listen(port, '0.0.0.0', () => {
+    console.log(`API is now online on port ${port}`);
+  });
 
 }
 
