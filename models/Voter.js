@@ -10,37 +10,37 @@ const voterSchema = new mongoose.Schema({
 	clustered_precint: {
 		type: String
 	},
-	fullname:{
+	fullname: {
 		type: String
 	},
 	address: {
 		type: String
 	},
-	birthday:{
-		type: Date
-	},
-	contact_number:{
+	birthday: {
 		type: String
 	},
-	category:{
+	contact_number: {
+		type: String
+	},
+	category: {
 		type: String
 	},
 	barangay: {
 		type: String
 	},
-	referred_by:{
+	referred_by: {
 		type: String
 	},
-	update_date:{
+	update_date: {
 		type: Date
 	},
-	updated_by:{
+	updated_by: {
 		type: String
 	},
-	encoded_by:{
+	encoded_by: {
 		type: String
 	},
-	color:{
+	color: {
 		type: String
 	},
 	longitude: {
@@ -58,7 +58,22 @@ const voterSchema = new mongoose.Schema({
 	remarks: {
 		type: String
 	},
-
+	volunteer_id: {
+		type: String
+	},
+	is_printed: {
+		type: String
+	},
+	is_received: {
+		type: String
+	},
+	status: {
+		type: String
+	},
+	receive_date: {
+		type: Date,
+		default: Date.now
+	},
 
 })
 
